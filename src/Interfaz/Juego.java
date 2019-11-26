@@ -46,7 +46,7 @@ public class Juego extends javax.swing.JFrame {
     private Conexion cnx;
 
     public Juego() {
-        cnx = new Conexion("flappy", "3306", "root", "olakase", "puntaje");
+        cnx = new Conexion("puntaje");
         cnx.conectar();
         
         jLabel2 = new javax.swing.JLabel();
@@ -287,6 +287,7 @@ public class Juego extends javax.swing.JFrame {
     public void mostrarPuntaje() throws SQLException {
         Sonido.terminocaida = true;
         Sonido.terminochoque = true;
+        
         ocularObjetos(false);
         panel2 = new JPanel();
         panel2.setBounds(0, 0, this.getWidth(), 550);
