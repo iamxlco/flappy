@@ -2,8 +2,10 @@ package Interfaz;
 
 import Clases.Movimiento_Flappy;
 import Clases.Movimiento_Tubos;
+import dB.Conexion;
 import java.awt.Color;
 import java.awt.Point;
+import java.sql.SQLException;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import org.edisoncor.gui.panel.PanelImage;
@@ -41,8 +43,12 @@ public class Juego extends javax.swing.JFrame {
     Point posicionflappy;
     public String ruta = "";
     int velocidad = 4;
+    private Conexion cnx;
 
     public Juego() {
+        cnx = new Conexion("flappy", "3306", "root", "olakase", "puntaje");
+        cnx.conectar();
+        
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -278,7 +284,7 @@ public class Juego extends javax.swing.JFrame {
         }
     }
 
-    public void mostrarPuntaje() {
+    public void mostrarPuntaje() throws SQLException {
         Sonido.terminocaida = true;
         Sonido.terminochoque = true;
         ocularObjetos(false);
@@ -290,7 +296,14 @@ public class Juego extends javax.swing.JFrame {
         panel2.setBackground(new Color(255, 255, 153));
         puntaje.setVisible(true);
         puntaje.mostrar();
+        
+        String nick = puntaje.parent.nombre;
+        int score = Integer.parseInt(jPuntaje.getText());
+        
+        cnx.Guardar(nick, score);
+        
         panel2.setVisible(true);
+        
     }
 
     public void EmpezarNuevo() {
