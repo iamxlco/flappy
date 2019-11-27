@@ -1,13 +1,11 @@
 package Interfaz;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-/**
- *
- * @author Fernando Huañec H
- * @email  xfer94x@gmail.com
- */
 
 public class GamerOver extends javax.swing.JDialog {
 
@@ -31,7 +29,11 @@ public class GamerOver extends javax.swing.JDialog {
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent evt) {
-                formWindowClosing(evt);
+                try {
+                    formWindowClosing(evt);
+                } catch (SQLException ex) {
+                    Logger.getLogger(GamerOver.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
 
@@ -71,7 +73,7 @@ public class GamerOver extends javax.swing.JDialog {
         pack();
     }
 
-    private void formWindowClosing(java.awt.event.WindowEvent evt) {
+    private void formWindowClosing(java.awt.event.WindowEvent evt) throws SQLException {
         this.parent.mostrarPuntaje();
     }
 

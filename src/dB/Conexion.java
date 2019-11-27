@@ -9,6 +9,7 @@ package dB;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,11 +23,7 @@ public class Conexion {
     public static String db, port,user, pass, table;
     public static Connection cnx;
     
-    public Conexion(String db, String port, String user, String pass, String table){
-        this.db = db;
-        this.port = port;
-        this.user = user;
-        this.pass = pass;
+    public Conexion(String table){
         this.table = table;
     }
     
@@ -35,8 +32,7 @@ public class Conexion {
 
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:"+port+"/"+db+"?useSSL=false", user, pass);
-            System.out.println("Conectado");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/flappy?characterEncoding=latin1&useConfigs=maxPerformance", "root", "olakase");
         } catch (SQLException ex) {
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -56,6 +52,40 @@ public class Conexion {
       }catch(SQLException ex){
          throw new SQLException(ex);
       }
+    }
+    
+    public int max() throws SQLException{
+        ResultSet resultado;
+        int maximo = 0;
+        try{
+           PreparedStatement consulta = cnx.prepareStatement("select max(score) from puntaje");
+           resultado = consulta.executeQuery();
+           while(resultado.next()){
+               maximo = resultado.getInt(1);
+           }
+        }catch(SQLException ex){
+           throw new SQLException(ex);
+        }
+        return maximo;
+    }
+    
+    public int maxuser(String user) throws SQLException{
+        ResultSet resultado;
+        int maximo = 0;
+        try{
+           PreparedStatement consulta = cnx.prepareStatement("select max(score) from puntaje where nick='"+user+"'");
+           resultado = consulta.executeQuery();
+           while(resultado.next()){
+               maximo = resultado.getInt(1);
+           }
+        }catch(SQLException ex){
+           throw new SQLException(ex);
+        }
+        return maximo;
+    }
+    
+    public void cerrar() throws SQLException{
+        cnx.close();
     }
             
 }

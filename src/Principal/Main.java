@@ -2,12 +2,6 @@ package Principal;
 
 import Interfaz.Juego;
 
-/**
- *
- * @author Fernando Huañec H
- * @email  xfer94x@gmail.com
- */
-
 public class Main {
 
     public static void main(String[] args) {

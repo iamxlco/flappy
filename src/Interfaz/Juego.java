@@ -11,11 +11,6 @@ import javax.swing.JPanel;
 import org.edisoncor.gui.panel.PanelImage;
 import sounds.Sonido;
 
-/**
- *
- * @author Fernando Huañec H
- * @email  xfer94x@gmail.com
- */
 
 public class Juego extends javax.swing.JFrame {
 
@@ -70,7 +65,7 @@ public class Juego extends javax.swing.JFrame {
         this.setTitle("FLAPPY BIRD");
         puntaje = new Puntaje(this);
         posicionflappy = jFlappy.getLocation();
-        this.jPanel1.setSize(400, 607);
+        this.jPanel1.setSize(400, 907);
     }
 
     @SuppressWarnings("unchecked")
